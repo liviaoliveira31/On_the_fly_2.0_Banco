@@ -91,15 +91,15 @@ namespace On_the_fly_2._0
                             break;
                         case 7:
                          Console.Clear();
-                            IATA veriata = new();
+                            IATAS veriata = new();
                             veriata.veriatas();
                            
                             break;
-                        case 10:
-                            IATA iata = new();
-                            iata.inserirIata();
+                       
+                        case 11:
+                            VOO voo = new VOO();
+                            voo.CadastrarVoo();
                             break;
-
                         default:
                             Console.Write("\n Opcao Inválida!\n Digite novamente: ");
                             break;
