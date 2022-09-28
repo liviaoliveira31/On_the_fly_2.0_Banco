@@ -86,6 +86,26 @@ namespace On_the_fly_2._0
                             }
                         }
                         break;
+
+                    case 3:
+                        using (SqlDataReader leitor = comando.ExecuteReader())
+                        {
+
+
+                            while (leitor.Read()) //enquanto leitor for verdadeiro
+                            {
+
+                                Console.WriteLine("\nINSCRIÇÃO: {0}", leitor.GetString(0)); //{0} posição da variavel q vai informar, parametro 0, cada linha começa no zero
+                                Console.WriteLine("CNPJ da companhia aerea proprietaria: {0}", leitor.GetString(1));
+                                Console.WriteLine("Capacidade: {0}", leitor.GetString(2));
+                                Console.WriteLine("Assentos ocupados: {0}", leitor.GetString(3));
+                                Console.WriteLine("Data Cadastro: {0}", leitor.GetDateTime(4).ToShortDateString());
+                                Console.WriteLine("Ultimo venda: {0}", leitor.GetDateTime(5).ToShortDateString());
+                                Console.WriteLine("Situação: {0}", leitor.GetString(6));
+                                retorna = true;
+                            }
+                        }
+                        break;
                 }
 
                
@@ -130,6 +150,37 @@ namespace On_the_fly_2._0
                 Console.WriteLine("Erro ao seu comunicar com o banco\n" + ex.Message + "Tecle enter para continuar ");
                 ConexaoSql.Close();
                 Console.ReadKey();
+            }
+        }
+
+        public bool VerificarDadoExistente(string dado, string campo, string tabela)
+        {
+            string queryString = $"SELECT {campo} FROM {tabela} WHERE {campo} = '{dado}'";
+            try
+            {
+                SqlCommand command = new SqlCommand(queryString, ConexaoSql);
+                ConexaoSql.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        ConexaoSql.Close();
+                        return true;
+                    }
+                    else
+                    {
+                        ConexaoSql.Close();
+                        return false;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                ConexaoSql.Close();
+                Console.WriteLine($"Erro ao acessar o Banco de Dados!!!\n{e.Message}");
+                Console.WriteLine("Tecle Enter para continuar....");
+                Console.ReadKey();
+                return false;
             }
         }
     }

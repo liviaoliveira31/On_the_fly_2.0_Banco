@@ -50,14 +50,18 @@ namespace On_the_fly_2._0
                     Console.WriteLine("Digite um CPF Válido!");
                     Thread.Sleep(2000);
                 }
+
+                else
+                {
+                    if (banco.VerificarDadoExistente(Cpf, "CPF", "Passageiro"))
+                    {
+                        Console.WriteLine("cnpj ja cadastrado!");
+                        //Thread.Sleep(2000);
+                        Cpf = "";
+                    }
+                }
             } while (!ValidaCPF(Cpf));
 
-            //if (VerificaPassageiro(this.caminho, Cpf))
-            //{
-            //    Console.WriteLine("Este CPF já está cadastrado!!");
-            //    Thread.Sleep(3000);
-            //    return false;
-            //}
             return true;
         }
         //Cadastra o Nome

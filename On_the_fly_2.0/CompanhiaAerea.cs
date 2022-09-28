@@ -41,13 +41,18 @@ namespace On_the_fly_2._0
                     Console.WriteLine("Digite um CNPJ Válido!");
                     Thread.Sleep(2000);
                 }
+
+                else
+                {
+                    if (banco.VerificarDadoExistente(Cnpj, "CNPJ", "Companhia_Aerea"))
+                    {
+                        Console.WriteLine("cnpj ja cadastrado!");
+                        //Thread.Sleep(2000);
+                        Cnpj = "";
+                    }
+                }
             } while (!ValidaCNPJ(Cnpj));
-            //if (VerifCNPJ(this.caminho, Cnpj))
-            //{
-            //    Console.WriteLine("Este CNPJ já está cadastrado!!");
-            //    Thread.Sleep(3000);
-            //    return false;
-            //}
+            
             return true;
         }
         //Cadastra Data de Abertura
@@ -233,7 +238,7 @@ namespace On_the_fly_2._0
         {
             int opc = 2;
             Console.WriteLine("LOCALIZAÇÃO DE COMPANHIA");
-            Console.WriteLine("Insira o CNPJ da companhia que deseja alterar");
+            Console.WriteLine("Insira o CNPJ da companhia que deseja encontrar");
             string ncnpj = Console.ReadLine().Replace(".", "").Replace("-", "").Replace("/", "");
           
             string cmdselect = $"SELECT CNPJ, Razao_Social, Data_Abertura, Data_Cadastro, Ultimo_Voo, Situacao FROM Companhia_Aerea WHERE CNPJ = '{ncnpj}'";
