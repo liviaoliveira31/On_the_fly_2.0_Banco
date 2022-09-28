@@ -78,7 +78,24 @@ namespace On_the_fly_2._0
 
                         case 5:
                             Console.Clear();
-                            //MenuBloqueadosRestritos();
+                            Console.WriteLine("DESEJA ACESSAR:\n1-BLOQUEADOS\n2-RESTRITOS");
+                            int resp = int.Parse(Console.ReadLine());
+                            while(resp != 1 && resp != 2)
+                            {
+                                Console.WriteLine("INSIRA UMA OPÇÃO VALIDA:\n1-BLOQUEADOS\n2-RESTRITOS");
+                                 resp = int.Parse(Console.ReadLine());
+                            }
+                            if(resp == 1)
+                            {
+                                Bloqueado b = new Bloqueado();
+                                b.GerarMenu();
+                            }
+                            else
+                            {
+                                Restrito r = new Restrito();
+                                r.GerarMenu();
+                            }
+                           
                             break;
 
 

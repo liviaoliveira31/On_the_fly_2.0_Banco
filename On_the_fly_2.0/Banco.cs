@@ -49,6 +49,7 @@ namespace On_the_fly_2._0
                 switch(opc)
                 {
                     case 1:
+                        //reader passageiro
                         using (SqlDataReader leitor = comando.ExecuteReader())
                         {
                           
@@ -69,6 +70,7 @@ namespace On_the_fly_2._0
                         break;
 
                     case 2:
+                        //reader companhia
                         using (SqlDataReader leitor = comando.ExecuteReader())
                         {
 
@@ -88,6 +90,7 @@ namespace On_the_fly_2._0
                         break;
 
                     case 3:
+                        //reader aeronave
                         using (SqlDataReader leitor = comando.ExecuteReader())
                         {
 
@@ -104,6 +107,39 @@ namespace On_the_fly_2._0
                                 Console.WriteLine("Situação: {0}", leitor.GetString(6));
                                 retorna = true;
                             }
+                        }
+                        break;
+
+                    case 4:
+                        //reader cnpj bloqueado
+                        using (SqlDataReader leitor = comando.ExecuteReader())
+                        {
+                            while (leitor.Read())
+                            {
+                                Console.Write(" CNPJ: {0}", leitor.GetString(0));
+                            }
+                            Console.WriteLine("\n\nPressione Enter para continuar...");
+                            retorna = true;
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                        break;
+
+                    case 5:
+                        //reader cpf
+                        using (SqlDataReader leitor = comando.ExecuteReader())
+                        {
+
+                            while (leitor.Read())
+                            {
+
+                                Console.Write(" CPF: {0}", leitor.GetString(0));
+
+                            }
+                            Console.WriteLine("\n\nPressione Enter para continuar...");
+                            retorna = true;
+                            Console.ReadKey();
+                            Console.Clear();
                         }
                         break;
                 }
