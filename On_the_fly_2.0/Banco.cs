@@ -142,6 +142,25 @@ namespace On_the_fly_2._0
                             Console.Clear();
                         }
                         break;
+
+                    case 6:
+                        //reader IATA
+                        using (SqlDataReader leitor = comando.ExecuteReader())
+                        {
+
+                            while (leitor.Read())
+                            {
+
+                                Console.WriteLine(" \n IATA: {0}", leitor.GetString(0));
+                                Console.WriteLine(" DESTINO: {0}", leitor.GetString(1));
+
+                            }
+                            Console.WriteLine("\n\nPressione Enter para continuar...");
+                            retorna = true;
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                        break;
                 }
 
                

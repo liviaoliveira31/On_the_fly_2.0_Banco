@@ -22,7 +22,6 @@ namespace On_the_fly_2._0
                 "2 - Verificar CNPJ\n" +
                 "3 - Remover CNPJ\n" +
                 "4 - Listar cnpj bloqueados\n" +
-              
                 "0 - Sair");
             do
             {

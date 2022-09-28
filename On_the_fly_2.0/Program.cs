@@ -18,7 +18,7 @@ namespace On_the_fly_2._0
 
         static void Main(string[] args)
         {
-           
+
 
             MostrarMenuInicial();
         }
@@ -34,8 +34,10 @@ namespace On_the_fly_2._0
                 Console.WriteLine(" Opção 2 : Menu localizar");
                 Console.WriteLine(" Opção 3 : Menu editar");
                 Console.WriteLine(" Opção 4 : Menu imprimir");
-                Console.WriteLine(" Opção 5 : Menu bloqueados e restritos");
-                Console.WriteLine(" Opção 6 : Menu imprimir");
+                Console.WriteLine(" Opção 5 : Menu bloqueados");
+                Console.WriteLine(" Opção 6 : Menu restritos");
+                Console.WriteLine(" Opção 7 : IATAS disponiveis");
+
                 Console.WriteLine(" Opção 0 : Sair");
 
                 Console.Write("\n Informe a opção: ");
@@ -78,33 +80,24 @@ namespace On_the_fly_2._0
 
                         case 5:
                             Console.Clear();
-                            Console.WriteLine("DESEJA ACESSAR:\n1-BLOQUEADOS\n2-RESTRITOS");
-                            int resp = int.Parse(Console.ReadLine());
-                            while(resp != 1 && resp != 2)
-                            {
-                                Console.WriteLine("INSIRA UMA OPÇÃO VALIDA:\n1-BLOQUEADOS\n2-RESTRITOS");
-                                 resp = int.Parse(Console.ReadLine());
-                            }
-                            if(resp == 1)
-                            {
-                                Bloqueado b = new Bloqueado();
-                                b.GerarMenu();
-                            }
-                            else
-                            {
-                                Restrito r = new Restrito();
-                                r.GerarMenu();
-                            }
-                           
+                            Bloqueado b = new Bloqueado();
+                            b.GerarMenu();
                             break;
-
-
-                        //ARRUMAR AQUI !!!!!
 
                         case 6:
                             Console.Clear();
-                            //Passageiro paa = new Passageiro();
-                            //paa.DeletaPassageiro();
+                            Restrito r = new Restrito();
+                            r.GerarMenu();
+                            break;
+                        case 7:
+                         Console.Clear();
+                            IATA veriata = new();
+                            veriata.veriatas();
+                           
+                            break;
+                        case 10:
+                            IATA iata = new();
+                            iata.inserirIata();
                             break;
 
                         default:
