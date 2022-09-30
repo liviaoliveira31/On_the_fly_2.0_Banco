@@ -18,127 +18,18 @@ namespace On_the_fly_2._0
         public string Situacao { get; set; }
         Banco banco = new Banco();
         public Aeronave()
-        {
-        }
+        {   }
         public override string ToString()
         {
             return $"{Inscricao}{CNPJ}{Capacidade}{AssentosOcupados}{UltimaVenda}{DataCadastro}{Situacao}";
         }
-
-        public void CadastraAeronave()
+        public void Pausa()
         {
-            Console.WriteLine(">>> CADASTRO DE AERONAVE <<<");
-            if (!CadastroCNPJ())
-                return;
-            if (!CadastraIdAeronave())
-                return;
-            CadastraCapacidade();
-            AssentosOcupados = "000";
-            UltimaVenda = DateTime.Now;
-            DataCadastro = DateTime.Now;
-            Situacao = "A";
-            string cmdinsert = $"INSERT INTO Aeronave (Inscricao, CNPJ, Capacidade, AssentosOcupados, Data_Cadastro, Ultima_Venda, Situacao)  VALUES('{Inscricao}','{CNPJ}','{Capacidade}','{AssentosOcupados}','{UltimaVenda}','{DataCadastro}','{Situacao}');";
-            banco.Insert(cmdinsert);
-
-            Console.WriteLine("\n CADASTRO REALIZADO COM SUCESSO!\nPressione Enter para continuar...");
-            Console.ReadKey();
-
+            Console.WriteLine("Pressione enter para continuar...");
             Console.ReadKey();
         }
 
-        public void AlterarCadastroAeronave()
-        {
-            bool verifica;
-            Console.WriteLine("ALTERAÇÃO DE DADOS");
-            Console.WriteLine("Insira a inscrição da aeronave que deseja alterar");
-            string naero = Console.ReadLine().ToUpper().Trim().Replace("-", "");
-            int opc = 3;
-            string cmdselect = $"SELECT Inscricao, CNPJ, Capacidade, AssentosOcupados, Data_Cadastro, Ultima_Venda, Situacao FROM AERONAVE WHERE INSCRICAO = '{naero}'";
-
-            verifica = banco.Select(cmdselect, opc);
-
-            if (verifica)
-            {
-
-
-                Console.WriteLine("Que dado deseja alterar?");
-                Console.WriteLine("1- Capacidade");
-                Console.WriteLine("2- situação");
-                string num;
-                num = Console.ReadLine();
-                do
-                {
-
-
-                    if (num != "1" && num != "2"  && num != "0")
-                    {
-                        Console.WriteLine("Opção inválida!");
-                        Thread.Sleep(3000);
-                    }
-
-                } while (num != "1" && num != "2"  && num != "0");
-
-                switch (num)
-                {
-                    case "1":
-                        Console.WriteLine("Insira a capacidade");
-                        string novacap = Console.ReadLine();
-                        string cmdupdate = $"UPDATE Aeronave SET Capacidade = '{novacap}' where INSCRICAO = '{naero}'";
-                        banco.Update(cmdupdate);
-
-                        cmdselect = $"SELECT Inscricao, CNPJ, Capacidade, AssentosOcupados, Data_Cadastro, Ultima_Venda, Situacao FROM AERONAVE WHERE INSCRICAO = '{naero}'";
-
-                        verifica = banco.Select(cmdselect, opc);
-
-                        break;
-
-                 
-
-                    case "2":
-                        Console.WriteLine("Insira a nova situação: [A/I] ");
-                        string novasit = Console.ReadLine().ToUpper();
-                        while (novasit.Length > 1)
-                        {
-                            Console.WriteLine("VALOR INVALIDO! Insira a nova situação [A/I]");
-                            novasit = Console.ReadLine().ToUpper();
-                        }
-
-                        while (novasit != "A" && novasit != "I")
-                        {
-                            Console.WriteLine("VALOR INVALIDO! Insira a nova situação [A/I]");
-                            novasit = Console.ReadLine().ToUpper();
-                        }
-                        cmdupdate = $"UPDATE Aeronave SET Situacao= '{novasit}' where Inscricao = '{naero}'";
-                        banco.Update(cmdupdate);
-
-                   
-                        break;
-                }
-            }
-        }
-
-        public void ImprimirAeronave()
-        {
-            int opc = 3;
-            Console.WriteLine("Lista de Aeronaves");
-
-            string cmdselect = $"SELECT Inscricao, CNPJ, Capacidade, AssentosOcupados, Data_Cadastro, Ultima_Venda, Situacao FROM AERONAVE WHERE situacao = 'A'";
-
-            banco.Select(cmdselect, opc);
-
-        }
-
-        public void LocalizarAeronave()
-        {
-            int opc = 3;
-            Console.WriteLine("LOCALIZAÇÃO DE AERONAVE");
-            Console.WriteLine("Insira a inscrição da aeronave que deseja localizar");
-            string naero = Console.ReadLine().ToUpper().Trim().Replace("-", "");
-
-            string cmdselect = $"SELECT Inscricao, CNPJ, Capacidade, AssentosOcupados, Data_Cadastro, Ultima_Venda, Situacao FROM AERONAVE";
-            banco.Select(cmdselect, opc);
-          
-        }
+        #region Verificação de dados e cadastro de aeronave
         public bool CadastraIdAeronave()
         {
             do
@@ -148,8 +39,8 @@ namespace On_the_fly_2._0
 
                 if (banco.VerificarDadoExistente(Inscricao, "Inscricao", "Aeronave"))
                 {
-                    Console.WriteLine("Codigo de inscrição existente!");
-                    //Thread.Sleep(2000);
+                    Console.WriteLine("Codigo de inscrição existente! TENTE NOVAMENTE");
+                 
                     Inscricao = "";
                 }
 
@@ -174,25 +65,6 @@ namespace On_the_fly_2._0
             }
             return true;
         }
-        public bool AlteraSituacao()
-        {
-            string num;
-            do
-            {
-                Console.Write("Alterar Situação [A] Ativo / [I] Inativo / [0] Cancelar: ");
-                num = Console.ReadLine().ToUpper();
-                if (num != "A" && num != "I" && num != "0")
-                {
-                    Console.WriteLine("Digite um opção válida!!!");
-                    Thread.Sleep(2000);
-                }
-            } while (num != "A" && num != "I" && num != "0");
-            if (num.Contains("0"))
-                return false;
-            Situacao = num;
-            return true;
-        }
-
         public bool CadastroCNPJ()
         {
             do
@@ -203,20 +75,122 @@ namespace On_the_fly_2._0
                 if (banco.VerificarDadoExistente(CNPJ, "CNPJ", "Companhia_Aerea"))
                 {
                     return true;
-                    //Console.WriteLine("Codigo de inscrição existente!");
-                    ////Thread.Sleep(2000);
-
+                   
                 }
                 else
                 {
-                    Console.WriteLine("CNPJ NÃO ENCONTRADO");
+                    Console.WriteLine("CNPJ NÃO ENCONTRADO! TENTE NOVAMENTE");
                     CNPJ = "";
 
                 }
             } while (CNPJ.Length == 0);
             return false;
         }
+        public void CadastraAeronave()
+        {
+            Console.WriteLine(">>> CADASTRO DE AERONAVE <<<");
+            if (!CadastroCNPJ())
+                return;
+            if (!CadastraIdAeronave())
+                return;
+            CadastraCapacidade();
+            AssentosOcupados = "000";
+            UltimaVenda = DateTime.Now;
+            DataCadastro = DateTime.Now;
+            Situacao = "A";
+            string cmdinsert = $"INSERT INTO Aeronave (Inscricao, CNPJ, Capacidade, AssentosOcupados, Data_Cadastro, Ultima_Venda, Situacao)  VALUES('{Inscricao}','{CNPJ}','{Capacidade}','{AssentosOcupados}','{UltimaVenda}','{DataCadastro}','{Situacao}');";
+            banco.Insert(cmdinsert);
 
+            Console.WriteLine("\n CADASTRO REALIZADO COM SUCESSO!\nPressione Enter para continuar...");
+            Console.ReadKey();
 
+            Console.ReadKey();
+        }
+        #endregion
+
+        #region alteração de dados de aeronave
+        public void AlterarCadastroAeronave()
+        {
+            bool verifica;
+            Console.WriteLine("ALTERAÇÃO DE DADOS");
+            Console.WriteLine("Insira a inscrição da aeronave que deseja alterar");
+            string naero = Console.ReadLine().ToUpper().Trim().Replace("-", "");
+            int opc = 3;
+            string cmdselect = $"SELECT Inscricao, CNPJ, Capacidade, AssentosOcupados, Data_Cadastro, Ultima_Venda, Situacao FROM AERONAVE WHERE INSCRICAO = '{naero}'";
+
+            verifica = banco.Select(cmdselect, opc);
+
+            if (verifica)
+            {
+                Console.WriteLine("Que dado deseja alterar?");
+                Console.WriteLine("1- Capacidade");
+                Console.WriteLine("2- situação");
+                string num;
+                num = Console.ReadLine();
+                do
+                {
+                    if (num != "1" && num != "2"  && num != "0")
+                    {
+                        Console.WriteLine("Opção inválida!");
+                        Thread.Sleep(3000);
+                    }
+                } while (num != "1" && num != "2"  && num != "0");
+
+                switch (num)
+                {
+                    case "1":
+                        Console.WriteLine("Insira a capacidade");
+                        string novacap = Console.ReadLine();
+                        string cmdupdate = $"UPDATE Aeronave SET Capacidade = '{novacap}' where INSCRICAO = '{naero}'";
+                        banco.Update(cmdupdate);
+                        cmdselect = $"SELECT Inscricao, CNPJ, Capacidade, AssentosOcupados, Data_Cadastro, Ultima_Venda, Situacao FROM AERONAVE WHERE INSCRICAO = '{naero}'";
+                        verifica = banco.Select(cmdselect, opc);
+                        break;
+            
+                    case "2":
+                        Console.WriteLine("Insira a nova situação: [A/I] ");
+                        string novasit = Console.ReadLine().ToUpper();
+                        while (novasit.Length > 1)
+                        {
+                            Console.WriteLine("VALOR INVALIDO! Insira a nova situação [A/I]");
+                            novasit = Console.ReadLine().ToUpper();
+                        }
+
+                        while (novasit != "A" && novasit != "I")
+                        {
+                            Console.WriteLine("VALOR INVALIDO! Insira a nova situação [A/I]");
+                            novasit = Console.ReadLine().ToUpper();
+                        }
+                        cmdupdate = $"UPDATE Aeronave SET Situacao= '{novasit}' where Inscricao = '{naero}'";
+                        banco.Update(cmdupdate);                  
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("AERONAVE NAO ENCONTRADA");
+                Pausa();
+            }
+        }
+        #endregion
+
+        #region impressão e localização de aeronave
+        public void ImprimirAeronave()
+        {
+            int opc = 3;
+            Console.WriteLine("Lista de Aeronaves");
+            string cmdselect = $"SELECT Inscricao, CNPJ, Capacidade, AssentosOcupados, Data_Cadastro, Ultima_Venda, Situacao FROM AERONAVE WHERE situacao = 'A'";
+            banco.Select(cmdselect, opc);
+        }
+        public void LocalizarAeronave()
+        {
+            int opc = 3;
+            Console.WriteLine("LOCALIZAÇÃO DE AERONAVE");
+            Console.WriteLine("Insira a inscrição da aeronave que deseja localizar");
+            string naero = Console.ReadLine().ToUpper().Trim().Replace("-", "");
+            string cmdselect = $"SELECT Inscricao, CNPJ, Capacidade, AssentosOcupados, Data_Cadastro, Ultima_Venda, Situacao FROM AERONAVE";
+            banco.Select(cmdselect, opc);     
+        }
+        #endregion
     }
 }

@@ -6,16 +6,13 @@ namespace On_the_fly_2._0
     internal class Program
     {
 
-        //static void Main(string[] args)
-        //{
-        //    Banco banco = new Banco();
-        //    Passageiro p = new Passageiro();
-        //    p.AlterarCadastroPassageiro();
-        //    Console.ReadKey();
+       
 
-
-        //}
-
+        static void Pausa()
+        {
+            Console.WriteLine("Pressione enter para continuar...");
+            Console.ReadKey();
+        }
         static void Main(string[] args)
         {
 
@@ -183,7 +180,7 @@ namespace On_the_fly_2._0
             } while (true);
         }
 
-        #region menu loccalizar
+        #region menu localizar
         static void MostrarMenuLocalizar() //inoperante
         {
             int opcao = 8;
@@ -192,7 +189,7 @@ namespace On_the_fly_2._0
             CompanhiaAerea companhiaAerea = new();
             Aeronave aeronave = new();
             VOO voo = new();
-            //PassagemVoo passagemVoo = new();
+            PassagemVoo passagemVoo = new();
             //Venda venda = new();
 
             Console.WriteLine(" °°°  MENU  LOCALIZAR  °°°");
@@ -252,11 +249,12 @@ namespace On_the_fly_2._0
                         voo.BuscarVoo();
                         break;
 
-                    //case 5:
-                    //    Console.WriteLine("Localizar passagem");
-                    //    Console.Clear();
-                    //    passagemVoo.NevagarPassagem();
-                    //    break;
+                    case 5:
+                        Console.Clear();
+                        passagemVoo.LocalizarPassagem();
+                       
+                        MostrarMenuInicial();
+                        break;
 
                     case 6:
                         Console.WriteLine("Localizar venda de passagem");
@@ -286,7 +284,7 @@ namespace On_the_fly_2._0
             CompanhiaAerea companhiaAerea = new();
             Aeronave aeronave = new();
             VOO voo = new();
-            //PassagemVoo passagemVoo = new();
+            PassagemVoo passagemVoo = new();
 
             Console.WriteLine(" °°°  MENU  EDITAR  °°°");
             Console.WriteLine(" Opção 1 : Editar passageiro");
@@ -344,7 +342,7 @@ namespace On_the_fly_2._0
                     case 5:
                         Console.WriteLine("Editar passagem");
                         Console.Clear();
-                        //passagemVoo.AlterarPrecoPassagem();
+                        passagemVoo.AlterarPassagens();
                         break;
 
                     case 6:
@@ -370,7 +368,7 @@ namespace On_the_fly_2._0
             CompanhiaAerea companhiaAerea = new();
             Aeronave aeronave = new();
             VOO voo = new();
-            //PassagemVoo passagemVoo = new();
+            PassagemVoo passagemVoo = new();
             //Venda venda = new();
 
             Console.WriteLine(" °°°  MENU  IMPRIMIR  °°°");
@@ -425,9 +423,8 @@ namespace On_the_fly_2._0
                         break;
 
                     case 5:
-                        Console.WriteLine("Imprime passagem");
                         Console.Clear();
-                        //passagemVoo.NevagarPassagem();
+                        passagemVoo.imprimirPassagem();
                         break;
 
                     case 6:

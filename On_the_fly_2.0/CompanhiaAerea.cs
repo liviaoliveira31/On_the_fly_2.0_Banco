@@ -28,6 +28,8 @@ namespace On_the_fly_2._0
             Console.WriteLine("Pressione enter para continuar...");
             Console.ReadKey();
         }
+
+        #region verificações de dados e cadastro de companhia
         public bool CadCNPJ()
         {
             do
@@ -55,7 +57,7 @@ namespace On_the_fly_2._0
             
             return true;
         }
-        //Cadastra Data de Abertura
+     
         public bool CadDataAbertura()
         {
             Console.Write("Digite a data de abertura (Mês/Dia/Ano): ");
@@ -73,11 +75,10 @@ namespace On_the_fly_2._0
                 return false;
             }
             DataAbertura = dataAbertura;
-            //if (DataAbertura == "0")
-            //    return false;
+           
             return true;
         }
-        //Cadastra a Razão Social
+       
         public bool CadRazao()
         {
             Console.Write("Digite a Razão Social:  (Max 50 caracteres): ");
@@ -95,28 +96,7 @@ namespace On_the_fly_2._0
                 RazaoSocial += " ";
             return true;
         }
-
-        //Altera a situação da Companhia 
-        public bool AlteraSituacao()
-        {
-            string num;
-            do
-            {
-                Console.Write("Alterar Situação [A] Ativo / [I] Inativo / [0] Cancelar: ");
-                num = Console.ReadLine().ToUpper();
-                if (num != "A" && num != "I" && num != "0")
-                {
-                    Console.WriteLine("Digite um opção válida!!!");
-                    Thread.Sleep(2000);
-                }
-            } while (num != "A" && num != "I" && num != "0");
-
-            if (num.Contains("0"))
-                return false;
-            Situacao = num;
-            return true;
-        }
-
+ 
         public void CadCompanhia()
         {
             Console.WriteLine(">>> CADSTRO DE COMPANHIA AEREA <<<");
@@ -143,7 +123,9 @@ namespace On_the_fly_2._0
 
             Pausa();
         }
+        #endregion
 
+        #region alteração de dados da companhia
         public void AlterarCadastroCompanhia()
         {
             bool verifica;
@@ -222,8 +204,16 @@ namespace On_the_fly_2._0
 
                 }
             }
-        }
 
+            else
+            {
+                Console.WriteLine("COMPANHIA NAO ENCONTRADA");
+                Pausa();
+            }
+        }
+        #endregion
+
+        #region impressão e localização da companhia
         public void ImprimirCompanhia()
         {
             int opc = 2;
@@ -233,7 +223,6 @@ namespace On_the_fly_2._0
             banco.Select(cmdselect, opc);
             Pausa();
         }
-
         public void LocalizarCompanhia()
         {
             int opc = 2;
@@ -245,6 +234,7 @@ namespace On_the_fly_2._0
             banco.Select(cmdselect, opc);
             Pausa();
         }
+        #endregion
 
         #region validacnpj
         public bool ValidaCNPJ(string vrCNPJ)

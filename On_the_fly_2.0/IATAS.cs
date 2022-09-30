@@ -10,13 +10,8 @@ namespace On_the_fly_2._0
     {
         public string iata { get; set; }
         Banco banco = new Banco();
-
         public IATAS()
-        {
-          
-        }
-
-    
+        {       }
         public void veriatas()
         {
             Console.WriteLine("IATAS CADASTRADAS");

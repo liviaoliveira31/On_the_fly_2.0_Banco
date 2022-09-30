@@ -173,16 +173,37 @@ namespace On_the_fly_2._0
                                 Console.WriteLine("\nID VOO: {0}", leitor.GetString(0));
                                 Console.WriteLine("AERONAVE: {0}", leitor.GetString(1));
                                 Console.WriteLine("IATA DE DESTINO: {0}", leitor.GetString(2));
-                                Console.WriteLine("PREÇO DA PASSAGEM: {0}", leitor.GetDouble(3));
-                                Console.WriteLine("DATA E HORA DO VOO: {0}", leitor.GetString(4));
-                                Console.WriteLine("DATA DO CADASTRO DO VOO: {0}", leitor.GetDateTime(5));
-                                Console.WriteLine("SITUAÇÃO: {0}", leitor.GetString(6));
+                                Console.WriteLine("DATA E HORA DO VOO: {0}", leitor.GetString(3));
+                                Console.WriteLine("DATA DO CADASTRO DO VOO: {0}", leitor.GetDateTime(4));
+                                Console.WriteLine("SITUAÇÃO: {0}", leitor.GetString(5));
 
                             }
                             Console.WriteLine("\n\nPressione Enter para continuar...");
                             retorna = true;
                             Console.ReadKey();
                             Console.Clear();
+                        }
+                        break;
+
+                    case 8:
+                        //reader passagem
+                        using (SqlDataReader leitor = comando.ExecuteReader())
+                        {
+
+                            while (leitor.Read())
+                            {
+
+                                Console.WriteLine("\nID PASSAGEM: {0}", leitor.GetString(0));
+                                Console.WriteLine("ID DO VOO REFERENTE: {0}", leitor.GetString(1));                            
+                                Console.WriteLine("PREÇO DA PASSAGEM: {0}", leitor.GetDouble(2));
+                                Console.WriteLine("DATA ULTIMA OPERAÇÃO: {0}", leitor.GetDateTime(3));
+                                Console.WriteLine("SITUAÇÃO: {0}", leitor.GetString(4));
+
+                            }
+                            //Console.WriteLine("\n\nPressione Enter para continuar...");
+                            retorna = true;
+                            //Console.ReadKey();
+                            //Console.Clear();
                         }
                         break;
                 }

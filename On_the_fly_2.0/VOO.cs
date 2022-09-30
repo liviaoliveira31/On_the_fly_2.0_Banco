@@ -18,19 +18,19 @@ namespace On_the_fly_2._0
         public string Situacao { get; set; }
 
         Banco banco = new Banco();
-
-
         public VOO()
         {
 
         }
-
+        public void Pausa()
+        {
+            Console.WriteLine("Pressione enter para continuar...");
+            Console.ReadKey();
+        }
         public override string ToString()
         {
             return $"{Id}{Aeronave}{Destino}{Preco_passagem}{DataVoo}{DataCadastro}{Situacao}";
         }
-
-
 
         #region cadastro e verificações do voo
         public bool BuscarIata()
@@ -142,23 +142,49 @@ namespace On_the_fly_2._0
         #region buscar e imprimir voo
         public void BuscarVoo()
         {
-            Console.WriteLine("Insira o ID do voo que deseja localizar");
-            string idvoo = Console.ReadLine();
-            int opc = 7;
-            string cmdselect = $"SELECT ID_VOO, AERONAVE, iata, PRECO_PASSAGEM, DATA_VOO, DATA_CADASTRO, SITUACAO FROM VOO WHERE ID_VOO = '{idvoo}'";
-            banco.Select(cmdselect, opc);
+
+            if (AcharIdVoo())
+            {
+                int opc = 7;
+                string cmdselect = $"SELECT ID_VOO, AERONAVE, iata,  DATA_VOO, DATA_CADASTRO, SITUACAO FROM VOO WHERE ID_VOO = '{Id}'";
+                banco.Select(cmdselect, opc);
+            }
         }
+
         public void ImprimirVoo()
 
         {
             Console.WriteLine("VOOS CADASTRADOS");
             int opc = 7;
             Console.WriteLine("\n VOOS ATIVOS");
-            string cmdselect = $"SELECT ID_VOO, AERONAVE, iata, PRECO_PASSAGEM, DATA_VOO, DATA_CADASTRO, SITUACAO FROM VOO WHERE SITUACAO = 'A' ";
+            string cmdselect = $"SELECT ID_VOO, AERONAVE, iata,  DATA_VOO, DATA_CADASTRO, SITUACAO FROM VOO WHERE SITUACAO = 'A' ";
             banco.Select(cmdselect, opc);
             Console.WriteLine("\n VOOS INATIVOS");
-            cmdselect = $"SELECT ID_VOO, AERONAVE, iata, PRECO_PASSAGEM, DATA_VOO, DATA_CADASTRO, SITUACAO FROM VOO WHERE SITUACAO = 'I' ";
+            cmdselect = $"SELECT ID_VOO, AERONAVE, iata,  DATA_VOO, DATA_CADASTRO, SITUACAO FROM VOO WHERE SITUACAO = 'I' ";
             banco.Select(cmdselect, opc);
+        }
+
+        public bool AcharIdVoo()
+        {
+            do
+            {
+                Console.WriteLine("Insira o ID do voo que deseja localizar");
+                Id = Console.ReadLine().ToUpper();
+                if (banco.VerificarDadoExistente(Id, "ID_VOO", "VOO"))
+                {
+                    Console.WriteLine("Voo localizado");
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("VOO NÃO ENCONTRADO! TENTE NOVAMENTE MAIS TARDE");
+
+                    Pausa();
+                    return false;
+
+                }
+            } while (Id.Length == 0);
+
         }
         #endregion
 
@@ -167,74 +193,81 @@ namespace On_the_fly_2._0
         {
             bool verifica;
             Console.WriteLine("ALTERAÇÃO DE DADOS");
-            Console.WriteLine("Insira o id do voo que deseja alterar");
-            string idvoo = Console.ReadLine();
-            int opc = 7;
-            string cmdselect = $"SELECT ID_VOO, AERONAVE, iata, PRECO_PASSAGEM, DATA_VOO, DATA_CADASTRO, SITUACAO FROM VOO WHERE ID_VOO = '{idvoo}'";
-            banco.Select(cmdselect, opc);
-
-            verifica = banco.Select(cmdselect, opc);
-
-            if (verifica)
+            if (AcharIdVoo())
             {
-                Console.WriteLine("QUAL DADO DESEJA ALTERAR? ");
-                Console.WriteLine("1- AERONAVE");
-                Console.WriteLine("2- DESTINO");
-                Console.WriteLine("3- SITUAÇÃO");
-                int op = int.Parse(Console.ReadLine());
+                int opc = 7;
+                string cmdselect = $"SELECT ID_VOO, AERONAVE, iata, PRECO_PASSAGEM, DATA_VOO, DATA_CADASTRO, SITUACAO FROM VOO WHERE ID_VOO = '{Id}'";
+                banco.Select(cmdselect, opc);
 
-                switch (op)
+                verifica = banco.Select(cmdselect, opc);
+
+                if (verifica)
                 {
-                    case 1:
+                    Console.WriteLine("QUAL DADO DESEJA ALTERAR? ");
+                    Console.WriteLine("1- AERONAVE");
+                    Console.WriteLine("2- DESTINO");
+                    Console.WriteLine("3- SITUAÇÃO");
+                    int op = int.Parse(Console.ReadLine());
 
-                        if (!AlterarAeronave())
-                            return;
-                        string cmdupdate = $"UPDATE VOO SET AERONAVE = '{Aeronave}' ";
-                        banco.Update(cmdupdate);
-                        Console.WriteLine("Aeronave alterada com sucesso");
-                        opc = 7;
-                        cmdselect = $"SELECT ID_VOO, AERONAVE, iata, PRECO_PASSAGEM, DATA_VOO, DATA_CADASTRO, SITUACAO FROM VOO WHERE ID_VOO = '{idvoo}'";
-                        banco.Select(cmdselect, opc);
+                    switch (op)
+                    {
+                        case 1:
 
-                        break;
+                            if (!AlterarAeronave())
+                                return;
+                            string cmdupdate = $"UPDATE VOO SET AERONAVE = '{Aeronave}' ";
+                            banco.Update(cmdupdate);
+                            Console.WriteLine("Aeronave alterada com sucesso");
+                            opc = 7;
+                            cmdselect = $"SELECT ID_VOO, AERONAVE, iata, PRECO_PASSAGEM, DATA_VOO, DATA_CADASTRO, SITUACAO FROM VOO WHERE ID_VOO = '{Id}'";
+                            banco.Select(cmdselect, opc);
 
-                    case 2:
-                        if (!AlterarDestino())
-                            return;
+                            break;
 
-                        cmdupdate = $"UPDATE VOO SET DESTINO = '{Destino}' ";
-                        banco.Update(cmdupdate);
-                        Console.WriteLine("Destino alterada com sucesso");
-                        opc = 7;
-                        cmdselect = $"SELECT ID_VOO, AERONAVE, iata, PRECO_PASSAGEM, DATA_VOO, DATA_CADASTRO, SITUACAO FROM VOO WHERE ID_VOO = '{idvoo}'";
-                        banco.Select(cmdselect, opc);
-                        break;
+                        case 2:
+                            if (!AlterarDestino())
+                                return;
 
-                    case 3:
-                        Console.WriteLine("QUAL A NOVA SITUAÇÃO DO VOO? [A/C]");
-                        string novasit = Console.ReadLine().ToUpper();
-                        while (novasit != "A" && novasit != "C")
-                        {
-                            Console.WriteLine("insira uma opção valida [A/C]");
-                            novasit = Console.ReadLine();
-                        }
-                        while (novasit.Length > 1)
-                        {
-                            Console.WriteLine("insira uma opção valida [A/C]");
-                            novasit = Console.ReadLine();
-                        }
+                            cmdupdate = $"UPDATE VOO SET DESTINO = '{Destino}' ";
+                            banco.Update(cmdupdate);
+                            Console.WriteLine("Destino alterada com sucesso");
+                            opc = 7;
+                            cmdselect = $"SELECT ID_VOO, AERONAVE, iata, PRECO_PASSAGEM, DATA_VOO, DATA_CADASTRO, SITUACAO FROM VOO WHERE ID_VOO = '{Id}'";
+                            banco.Select(cmdselect, opc);
+                            break;
 
-                        cmdupdate = $"UPDATE VOO SET situacao = '{novasit}' ";
-                        Console.WriteLine("SITUAÇÃO ALTERADA COM SUCESSO!");
-                        banco.Update(cmdupdate);
-                        opc = 7;
-                        cmdselect = $"SELECT ID_VOO, AERONAVE, iata, PRECO_PASSAGEM, DATA_VOO, DATA_CADASTRO, SITUACAO FROM VOO WHERE ID_VOO = '{idvoo}'";
-                        banco.Select(cmdselect, opc);
-                        break;
+                        case 3:
+                            Console.WriteLine("QUAL A NOVA SITUAÇÃO DO VOO? [A/C]");
+                            string novasit = Console.ReadLine().ToUpper();
+                            while (novasit != "A" && novasit != "C")
+                            {
+                                Console.WriteLine("insira uma opção valida [A/C]");
+                                novasit = Console.ReadLine();
+                            }
+                            while (novasit.Length > 1)
+                            {
+                                Console.WriteLine("insira uma opção valida [A/C]");
+                                novasit = Console.ReadLine();
+                            }
+
+                            cmdupdate = $"UPDATE VOO SET situacao = '{novasit}' ";
+                            Console.WriteLine("SITUAÇÃO ALTERADA COM SUCESSO!");
+                            banco.Update(cmdupdate);
+                            opc = 7;
+                            cmdselect = $"SELECT ID_VOO, AERONAVE, iata, PRECO_PASSAGEM, DATA_VOO, DATA_CADASTRO, SITUACAO FROM VOO WHERE ID_VOO = '{Id}'";
+                            banco.Select(cmdselect, opc);
+                            break;
+
+                    }
 
                 }
-
+                else
+                {
+                    Console.WriteLine("VOO NAO ENCONTRADO");
+                    Pausa();
+                }
             }
+           
         }
         public bool AlterarAeronave()
         {

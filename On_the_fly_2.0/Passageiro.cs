@@ -13,18 +13,16 @@ namespace On_the_fly_2._0
     {
         private string Cpf { get; set; }
         private string Nome { get; set; }
-        private DateTime DataNascimento;
+        private DateTime DataNascimento { get; set; }
         private string Sexo { get; set; }
-        private DateTime UltimaCompra;
-        private DateTime DataCadastro;
+        private DateTime UltimaCompra { get; set; }
+        private DateTime DataCadastro { get; set; }
         private string Situacao { get; set; }
 
         Banco banco = new Banco();
 
         public Passageiro()
-        {
-
-        }
+        { }
         public void Pausa()
         {
             Console.WriteLine("Pressione enter para continuar...");
@@ -267,18 +265,19 @@ namespace On_the_fly_2._0
                 }
             }
 
-            else if (verifica == false)
+            else 
                 do
                 {
                     {
                         Console.WriteLine("CPF INEXISTENTE");
-                        
+                        ncpf = "";
+                        Pausa();
                     }
-                } while (verifica == false);
+                } while (ncpf.Length>11);
         }
 
 
-        public void ImprimirPassageiro ()
+        public void ImprimirPassageiro()
         {
             int opc = 1;
             Console.WriteLine("Lista de passageiros cadastros");
@@ -301,186 +300,7 @@ namespace On_the_fly_2._0
 
 
 
-        #region CODANTIGO
-
-        //Altera o cadastro do passageiro
-        //public void AlteraDadoPassageiro()
-        //{
-        //    string cpf;
-        //    do
-        //    {
-        //        string caminho = this.caminho;
-        //        Console.WriteLine(">>> ALTERAR DADOS DE PASSAGEIRO <<<\nPara sair digite 's'.\n");
-        //        Console.Write("Digite o CPF do passageiro: ");
-        //        cpf = Console.ReadLine().Replace(".", "").Replace("-", "");
-        //        if (cpf == "s")
-        //            return;
-
-        //        if (!ValidaCPF(cpf))
-        //        {
-        //            Console.WriteLine("CPF inválido!");
-        //            Thread.Sleep(3000);
-        //        }
-        //    } while (!ValidaCPF(cpf));
-
-        //    if (!VerificaPassageiro(caminho, cpf))
-        //    {
-        //        Console.WriteLine("Passageiro não encontrado!!");
-        //        Thread.Sleep(3000);
-        //        return;
-        //    }
-        //    //Busca os dados de passageiros no arquivo
-        //    string[] lines = File.ReadAllLines(caminho);
-
-        //    for (int i = 0; i < lines.Length; i++)
-        //    {
-        //        if (lines[i].Contains(cpf))
-        //        {
-        //            string num;
-        //            do
-        //            {
-        //                Console.Clear();
-        //                Console.WriteLine(">>> ALTERAR DADOS DE PASSAGEIRO <<<");
-        //                Console.Write("Para alterar digite:\n\n[1] Nome\n[2] Sexo\n[3] Situação do Cadastro\n[0] Sair\nOpção: ");
-        //                num = Console.ReadLine();
-
-        //                if (num != "1" && num != "2" && num != "3" && num != "0")
-        //                {
-        //                    Console.WriteLine("Opção inválida!");
-        //                    Thread.Sleep(3000);
-        //                }
-
-        //            } while (num != "1" && num != "2" && num != "3" && num != "0");
-
-        //            if (num.Contains("0"))
-        //                return;
-
-        //            //Condição para alterar o dado em específico do passageiro
-        //            switch (num)
-        //            {
-        //                case "1":
-        //                    if (!CadastraNome())
-        //                        return;
-
-        //                    lines[i] = lines[i].Replace(lines[i].Substring(11, Nome.Length), Nome);
-        //                    break;
-
-        //                case "2":
-        //                    if (!CadastraSexo())
-        //                        return;
-        //                    lines[i] = lines[i].Replace(lines[i].Substring(70, Sexo.Length), Sexo);
-        //                    break;
-
-        //                case "3":
-        //                    if (!AlteraSituacao())
-        //                        return;
-        //                    lines[i] = lines[i].Replace(lines[i].Substring(87, Situacao.Length), Situacao);
-        //                    break;
-        //            }
-        //            Console.WriteLine("Cadastro alterado com sucesso!");
-        //            Thread.Sleep(3000);
-        //        }
-        //    }
-        //    //Salva os dados atualizados do passageiro
-        //    File.WriteAllLines(caminho, lines);
-        //}
-        ////Imprimi os passageiros cadastrados e ativos
-        //public void ImprimiPassageiros()
-        //{
-        //    string[] lines = File.ReadAllLines(caminho);
-        //    List<string> passageiros = new();
-
-        //    for (int i = 1; i < lines.Length; i++)
-        //    {
-        //        //Verifica se o cadastro esta ativo
-        //        if (lines[i].Substring(87, 1).Contains("A"))
-        //            passageiros.Add(lines[i]);
-        //    }
-
-        //    //Laço para navegar nos cadastros de passageitos
-        //    for (int i = 0; i < passageiros.Count; i++)
-        //    {
-        //        string op;
-        //        do
-        //        {
-        //            Console.Clear();
-        //            Console.WriteLine(">>> Cadastro Passageiros <<<\nDigite para navegar:\n[1] Próximo Cadasatro\n[2] Cadastro Anterior" +
-        //                "\n[3] Último cadastro\n[4] Voltar ao Início\n[s] Sair\n");
-
-        //            Console.WriteLine($"Cadastro [{i + 1}] de [{passageiros.Count}]");
-        //            //Imprimi o primeiro da lista 
-        //            LocalizaPassageiro(caminho, passageiros[i].Substring(0, 11));
-
-        //            Console.Write("Opção: ");
-        //            op = Console.ReadLine();
-
-        //            if (op != "1" && op != "2" && op != "3" && op != "4" && op != "s")
-        //            {
-        //                Console.WriteLine("Opção inválida!");
-        //                Thread.Sleep(2000);
-        //            }
-        //            //Sai do método
-        //            else if (op.Contains("s"))
-        //                return;
-
-        //            //Volta no Cadastro Anterior
-        //            else if (op.Contains("2"))
-        //                if (i == 0)
-        //                    i = 0;
-        //                else
-        //                    i--;
-
-        //            //Vai para o fim da lista
-        //            else if (op.Contains("3"))
-        //                i = passageiros.Count - 1;
-
-        //            //Volta para o inicio da lista
-        //            else if (op.Contains("4"))
-        //                i = 0;
-        //            //Vai para o próximo da lista    
-        //        } while (op != "1");
-        //        if (i == passageiros.Count - 1)
-        //            i--;
-
-        //    }
-        //}
-
-        ////Verifica se o Cnpj já esta cadastrado
-        //public bool VerificaPassageiro(string caminho, string cpf)
-        //{
-        //    foreach (string line in File.ReadLines(caminho))
-        //    {
-        //        if (line.Contains(cpf))
-        //        {
-        //            return true;
-        //        }
-        //    }
-        //    return false;
-        //}
-
-        ////localiza um passageiro em específico
-        //public void LocalizaPassageiro(string caminho, string cpf)
-        //{
-        //    foreach (string line in File.ReadLines(caminho))
-        //    {
-        //        if (line.Contains(cpf))
-        //        {
-        //            Console.WriteLine($"CPF: {line.Substring(0, 11)}");
-        //            Console.WriteLine($"Nome: {line.Substring(11, 50)}");
-        //            Console.WriteLine($"Data de Nascimento: {line.Substring(62, 2)}/{line.Substring(64, 2)}/{line.Substring(66, 4)}");
-        //            Console.WriteLine($"Sexo: {line.Substring(70, 1).ToUpper()}");
-        //            Console.WriteLine($"Ùltima compra: {line.Substring(71, 2)}/{line.Substring(73, 2)}/{line.Substring(75, 4)}");
-        //            Console.WriteLine($"Data do Cadastro: {line.Substring(79, 2)}/{line.Substring(81, 2)}/{line.Substring(83, 4)}");
-        //            if (line.Substring(87, 1).Contains("A"))
-        //                Console.WriteLine($"Situação: Ativo");
-        //            else
-        //                Console.WriteLine($"Situação: Desativado");
-
-        //        }
-        //    }
-        //}
-        //Valida o CPF
-        #endregion
+  
 
         #region valida cpf
         private static bool ValidaCPF(string vrCPF)
