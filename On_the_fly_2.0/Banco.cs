@@ -161,6 +161,30 @@ namespace On_the_fly_2._0
                             Console.Clear();
                         }
                         break;
+
+                    case 7:
+                        //reader voo
+                        using (SqlDataReader leitor = comando.ExecuteReader())
+                        {
+
+                            while (leitor.Read())
+                            {
+
+                                Console.WriteLine("\nID VOO: {0}", leitor.GetString(0));
+                                Console.WriteLine("AERONAVE: {0}", leitor.GetString(1));
+                                Console.WriteLine("IATA DE DESTINO: {0}", leitor.GetString(2));
+                                Console.WriteLine("PREÇO DA PASSAGEM: {0}", leitor.GetDouble(3));
+                                Console.WriteLine("DATA E HORA DO VOO: {0}", leitor.GetString(4));
+                                Console.WriteLine("DATA DO CADASTRO DO VOO: {0}", leitor.GetDateTime(5));
+                                Console.WriteLine("SITUAÇÃO: {0}", leitor.GetString(6));
+
+                            }
+                            Console.WriteLine("\n\nPressione Enter para continuar...");
+                            retorna = true;
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                        break;
                 }
 
                
@@ -238,5 +262,43 @@ namespace On_the_fly_2._0
                 return false;
             }
         }
+
+        public int BuscaEspecifica(string dado, string campo, string tabela, string valorretorna)
+        {
+            int retorna = 0;
+            string queryString = $"SELECT {valorretorna} FROM {tabela} WHERE {campo} = '{dado}'";
+            try
+            {
+                ConexaoSql.Open();
+                SqlCommand cmd = new SqlCommand(queryString, ConexaoSql);
+                cmd.ExecuteNonQuery();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        retorna = reader.GetInt32(0);
+                        ConexaoSql.Close();
+                        return retorna;
+                    }
+                    else
+                    {
+                        ConexaoSql.Close();
+                        retorna = 0;
+                        return retorna;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(" Erro ao se comunicar com o banco\n" + ex.Message);
+                ConexaoSql.Close();
+                Console.WriteLine("\nPressione ENTER para continuar");
+                Console.ReadKey();
+                Console.Clear();
+                return retorna;
+            }
+        }
+
     }
 }

@@ -96,10 +96,7 @@ namespace On_the_fly_2._0
                            
                             break;
                        
-                        case 11:
-                            VOO voo = new VOO();
-                            voo.CadastrarVoo();
-                            break;
+                        
                         default:
                             Console.Write("\n Opcao Inválida!\n Digite novamente: ");
                             break;
@@ -116,7 +113,7 @@ namespace On_the_fly_2._0
             Passageiro passageiro = new();
             CompanhiaAerea companhiaAerea = new();
             Aeronave aeronave = new();
-            //Voo voo = new();
+            VOO voo = new();
             //Venda venda = new();
 
             Console.WriteLine(" °°°  MENU  CADASTRO  °°°");
@@ -164,10 +161,9 @@ namespace On_the_fly_2._0
                         aeronave.CadastraAeronave();
                         break;
 
-                    case 4:
-                        //Console.WriteLine(" Cadastro de voo");
-                        //Console.Clear();
-                        //voo.CadastrarVoo();
+                    case 4:                       
+                        Console.Clear();
+                        voo.CadastrarVoo();
                         break;
 
                     case 5:
@@ -195,7 +191,7 @@ namespace On_the_fly_2._0
             Passageiro passageiro = new();
             CompanhiaAerea companhiaAerea = new();
             Aeronave aeronave = new();
-            //Voo voo = new();
+            VOO voo = new();
             //PassagemVoo passagemVoo = new();
             //Venda venda = new();
 
@@ -253,7 +249,7 @@ namespace On_the_fly_2._0
                     case 4:
                         Console.WriteLine("Localizar voo");
                         Console.Clear();
-                        //voo.ImprimeVoos();
+                        voo.BuscarVoo();
                         break;
 
                     //case 5:
@@ -289,7 +285,7 @@ namespace On_the_fly_2._0
             Passageiro passageiro = new();
             CompanhiaAerea companhiaAerea = new();
             Aeronave aeronave = new();
-            //Voo voo = new();
+            VOO voo = new();
             //PassagemVoo passagemVoo = new();
 
             Console.WriteLine(" °°°  MENU  EDITAR  °°°");
@@ -342,7 +338,7 @@ namespace On_the_fly_2._0
                     case 4:
                         Console.WriteLine("Editar voo");
                         Console.Clear();
-                        //voo.AlteraDadoVoo();
+                        voo.AlterarVoo();
                         break;
 
                     case 5:
@@ -373,7 +369,7 @@ namespace On_the_fly_2._0
             Passageiro passageiro = new();
             CompanhiaAerea companhiaAerea = new();
             Aeronave aeronave = new();
-            //Voo voo = new();
+            VOO voo = new();
             //PassagemVoo passagemVoo = new();
             //Venda venda = new();
 
@@ -423,10 +419,9 @@ namespace On_the_fly_2._0
                         aeronave.ImprimirAeronave();
                         break;
 
-                    case 4:
-                        Console.WriteLine("Imprime voo");
+                    case 4:               
                         Console.Clear();
-                        //voo.ImprimeVoos();
+                        voo.ImprimirVoo();
                         break;
 
                     case 5:
