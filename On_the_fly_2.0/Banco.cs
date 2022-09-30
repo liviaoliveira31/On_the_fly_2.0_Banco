@@ -37,6 +37,44 @@ namespace On_the_fly_2._0
 
 
         }
+
+        //public DateTime SelectGenerico(string cmd)
+        //{
+        //    try
+        //    {
+        //        DateTime retorna;
+        //        ConexaoSql.Open(); //Abrindo conexão sql
+        //        SqlCommand comando = new SqlCommand(cmd, ConexaoSql);
+        //        comando.ExecuteNonQuery();
+        //        using (SqlDataReader leitor = cmd.ExecuteReader())
+        //        {
+
+        //            if (leitor.Read())
+        //            {
+        //                retorna = leitor.GetDateTime(0);
+        //                ConexaoSql.Close();
+        //                return retorna;
+        //            }
+        //            else
+        //            {
+        //                ConexaoSql.Close();
+        //                retorna = 0;
+        //                return retorna;
+        //            }
+                    
+        //        }
+             
+        //    }
+        //    catch (Exception ex)
+
+        //    {
+        //        Console.WriteLine("Erro ao seu comunicar com o banco\n" + ex.Message + "Tecle enter para continuar ");
+        //        ConexaoSql.Close();
+        //        Console.ReadKey();
+        //    }
+
+
+        //}
         public bool Select(string cmd, int opc)
         {
             bool retorna = false;
