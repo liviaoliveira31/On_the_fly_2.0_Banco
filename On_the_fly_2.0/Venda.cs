@@ -45,17 +45,20 @@ namespace On_the_fly_2._0
                 cmdselect = $"SELECT ID_VOO, AERONAVE, IATA, DATA_VOO, DATA_CADASTRO, SITUACAO FROM VOO WHERE SITUACAO = 'A'";
                 opc = 7;
                 banco.Select(cmdselect, opc);
-                if(ValidarVoo())
-                {
+               string idvoo =  ValidarVoo();
+                
                     Console.WriteLine("PASSAGENS DISPONIVEIS");
-                    cmdselect = $"SELECT AERONAVE.CAPACIDADE, VOO.ID_VOO FROM AERONAVE, VOO WHERE (VOO.AERONAVE = AERONAVE.INSCRICAO)";
+                opc = 8;
+                cmdselect = $"SELECT Id_Passagem,Id_Voo,Valor,Data_Ultima_Operacao,Situacao FROM PASSAGEM WHERE ID_VOO = '{idvoo}' AND SITUACAO = 'L'";
+                banco.Select(cmdselect, opc);
+                Console.WriteLine();
 
-                }
+                
 
             }
         }
 
-        public bool ValidarVoo()
+        public string ValidarVoo()
         {
            
                 Console.WriteLine("Insira o id do voo que deseja comprar passagens");
@@ -64,14 +67,14 @@ namespace On_the_fly_2._0
                 {
 
                     Console.WriteLine("VOO Localizado");
-                    return true;
+                    return idvoo ;
                 }
                 else
                 {
                     Console.WriteLine("VOO NÃO ENCONTRADO! TENTE NOVAMENTE MAIS TARDE");
 
 
-                    return false;
+                    return "";
 
                 }
            
@@ -109,6 +112,40 @@ namespace On_the_fly_2._0
                 }
             } while (Passageiro.Length == 0);
 
+        }
+
+        public bool ValidarIdPassagem()
+        {
+            Console.WriteLine("Insira o id da passagem que deseja comprar:");
+            string idpas = Console.ReadLine();
+            
+            if (banco.VerificarDadoExistente(idpas ,"ID_PASSAGEM", "PASSAGEM"))
+            {
+
+               
+                Console.WriteLine("Passagem localizada");
+                Console.WriteLine("INSIRA [S] PARA COMPRAR E [N] PARA VOLTAR");
+                string resp = Console.ReadLine().ToUpper();
+                while (resp != "S" && resp != "N")
+                {
+                    Console.WriteLine("VALOR INVALIDO! INSIRA [S] PARA COMPRAR E [N] PARA VOLTAR");
+                    resp = Console.ReadLine().ToUpper();
+                }
+                if(resp == "S")
+                {
+                    Console.WriteLine("PASSAGEM COMPRADA COM SUCESSO!");
+                    string cmdupdate = $"UPDATE PASSAGEM SET SITUACAO = 'L' WHERE ID_PASSAGEM = '{idpas}'";
+                }
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("VOO NÃO ENCONTRADO! TENTE NOVAMENTE MAIS TARDE");
+
+
+                return false;
+
+            }
         }
     }
 }

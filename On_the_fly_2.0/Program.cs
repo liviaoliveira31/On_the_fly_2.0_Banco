@@ -111,7 +111,7 @@ namespace On_the_fly_2._0
             CompanhiaAerea companhiaAerea = new();
             Aeronave aeronave = new();
             VOO voo = new();
-            //Venda venda = new();
+            Venda venda = new();
 
             Console.WriteLine(" °°°  MENU  CADASTRO  °°°");
             Console.WriteLine(" Opção 1 : Cadastrar passageiro");
@@ -164,9 +164,9 @@ namespace On_the_fly_2._0
                         break;
 
                     case 5:
-                        //Console.WriteLine(" Cadastrar venda de passagem");
-                        //Console.Clear();
-                        //venda.Cadastrar();
+                        Console.WriteLine(" Cadastrar venda de passagem");
+                        Console.Clear();
+                        venda.RealizarVenda();
                         break;
                     case 6:
                         Console.WriteLine(" Menu Inicial");
