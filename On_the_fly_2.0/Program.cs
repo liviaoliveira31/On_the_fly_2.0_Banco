@@ -73,24 +73,28 @@ namespace On_the_fly_2._0
                         case 4:
                             Console.Clear();
                             MostrarMenuImprimir();
+
                             break;
 
                         case 5:
                             Console.Clear();
                             Bloqueado b = new Bloqueado();
                             b.GerarMenu();
+                            MostrarMenuInicial();
                             break;
 
                         case 6:
                             Console.Clear();
                             Restrito r = new Restrito();
                             r.GerarMenu();
+                            MostrarMenuInicial();
                             break;
                         case 7:
                          Console.Clear();
                             IATAS veriata = new();
                             veriata.veriatas();
-                           
+                            MostrarMenuInicial();
+
                             break;
                        
                         
@@ -156,17 +160,20 @@ namespace On_the_fly_2._0
                         Console.WriteLine(" Cadastrar aeronave");
                         Console.Clear();
                         aeronave.CadastraAeronave();
+                        MostrarMenuInicial();
                         break;
 
                     case 4:                       
                         Console.Clear();
                         voo.CadastrarVoo();
+                        MostrarMenuInicial();
                         break;
 
                     case 5:
                         Console.WriteLine(" Cadastrar venda de passagem");
                         Console.Clear();
                         venda.RealizarVenda();
+                        MostrarMenuInicial();
                         break;
                     case 6:
                         Console.WriteLine(" Menu Inicial");
@@ -198,7 +205,7 @@ namespace On_the_fly_2._0
             Console.WriteLine(" Opção 3 : Localizar aeronave");
             Console.WriteLine(" Opção 4 : Localizar voo");
             Console.WriteLine(" Opção 5 : Localizar passagem");
-            Console.WriteLine(" Opção 6 : Localizar venda de passagem");
+            //Console.WriteLine(" Opção 6 : Localizar venda de passagem");
             Console.WriteLine(" Opção 7 : Voltar ao Menu Iniciar");
             Console.WriteLine(" Opção 0 : Sair");
 
@@ -221,7 +228,7 @@ namespace On_the_fly_2._0
                         break;
 
                     case 1:
-                        Console.WriteLine("Localizar passaageiro");
+                        Console.WriteLine("Localizar passageiro");
                         Console.Clear();
                         passageiro.LocalizarPassageiro();
                         passageiro.Pausa();
@@ -241,6 +248,7 @@ namespace On_the_fly_2._0
                         Console.WriteLine("Localizar aeronave");
                         Console.Clear();
                         aeronave.LocalizarAeronave();
+                        MostrarMenuInicial();
                         break;
 
                     case 4:
@@ -256,11 +264,11 @@ namespace On_the_fly_2._0
                         MostrarMenuInicial();
                         break;
 
-                    case 6:
-                        Console.WriteLine("Localizar venda de passagem");
-                        Console.Clear();
-                        //venda.Localizar();
-                        break;
+                    //case 6:
+                    //    Console.WriteLine("Localizar venda de passagem");
+                    //    Console.Clear();
+                    //    //venda.Localizar();
+                    //    break;
 
                     case 7:
                         Console.Clear();
@@ -318,6 +326,7 @@ namespace On_the_fly_2._0
                         Console.WriteLine("Editar passageiro");
                         Console.Clear();
                         passageiro.AlterarCadastroPassageiro();
+                        MostrarMenuInicial();
                         break;
 
                     case 2:
@@ -325,24 +334,28 @@ namespace On_the_fly_2._0
                         Console.Clear();
                         companhiaAerea.AlterarCadastroCompanhia();
                         companhiaAerea.Pausa();
+                        MostrarMenuInicial();
                         break;
 
                     case 3:
                         Console.WriteLine("Editar aeronave");
                         Console.Clear();
                         aeronave.AlterarCadastroAeronave();
+                        MostrarMenuInicial();
                         break;
 
                     case 4:
                         Console.WriteLine("Editar voo");
                         Console.Clear();
                         voo.AlterarVoo();
+                        MostrarMenuInicial();
                         break;
 
                     case 5:
                         Console.WriteLine("Editar passagem");
                         Console.Clear();
                         passagemVoo.AlterarPassagens();
+                        MostrarMenuInicial();
                         break;
 
                     case 6:
@@ -377,7 +390,7 @@ namespace On_the_fly_2._0
             Console.WriteLine(" Opção 3 : Imprime aeronaves");
             Console.WriteLine(" Opção 4 : Imprime voos");
             Console.WriteLine(" Opção 5 : Imprime passagens");
-            Console.WriteLine(" Opção 6 : Imprime venda de passagens");
+            //Console.WriteLine(" Opção 6 : Imprime venda de passagens");
             Console.WriteLine(" Opção 7 : Voltar ao Menu Iniciar");
             Console.WriteLine(" Opção 0 : Sair");
 
@@ -403,35 +416,40 @@ namespace On_the_fly_2._0
                         Console.WriteLine("Imprime passageiro");
                         Console.Clear();
                         passageiro.ImprimirPassageiro();
+                        MostrarMenuInicial();
                         break;
 
                     case 2:
                         Console.WriteLine("Imprime companhia aerea");
                         Console.Clear();
                         companhiaAerea.ImprimirCompanhia();
+                        MostrarMenuInicial();
                         break;
 
                     case 3:
                         Console.WriteLine("Imprime aeronave");
                         Console.Clear();
                         aeronave.ImprimirAeronave();
+                        MostrarMenuInicial();
                         break;
 
                     case 4:               
                         Console.Clear();
                         voo.ImprimirVoo();
+                        MostrarMenuInicial();
                         break;
 
                     case 5:
                         Console.Clear();
                         passagemVoo.imprimirPassagem();
+                        MostrarMenuInicial();
                         break;
 
-                    case 6:
-                        Console.WriteLine("Imprime venda de passagem");
-                        Console.Clear();
-                        //venda.Imprimir();
-                        break;
+                    //case 6:
+                    //    Console.WriteLine("Imprime venda de passagem");
+                    //    Console.Clear();
+                    //    //venda.Imprimir();
+                    //    break;
 
                     case 7:
                         Console.Clear();
